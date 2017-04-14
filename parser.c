@@ -72,7 +72,10 @@ void compileBlock3(void) {
 }
 
 void compileBlock4(void) {
-	compileSubDecls();
+	if (lookAhead->tokenType == KW_PROCEDURE || lookAhead->tokenType == KW_FUNCTION)
+	{
+		compileSubDecls();
+	}
 	compileBlock5();
 }
 
@@ -283,7 +286,7 @@ void compileBasicType(void) {
 	case KW_CHAR:
 		eat(KW_CHAR);
 		break;
-	default: 
+	default:
 		error(ERR_INVALIDBASICTYPE, lookAhead->lineNo, lookAhead->colNo);
 		break;
 
@@ -452,16 +455,18 @@ void compileIfSt(void) {
 }
 
 void compileElseSt(void) {
-	eat(KW_ELSE);
-	compileStatement();
-	/*switch (lookAhead->tokenType) {
+	/*eat(KW_ELSE);
+	compileStatement();*/
+	switch (lookAhead->tokenType) {
 	case KW_END:
 	case SB_SEMICOLON:
 	case KW_ELSE:
 		break;
 	default:
+		eat(KW_ELSE);
+		compileStatement();
 		break;
-	}*/
+	}
 }
 
 void compileWhileSt(void) {
