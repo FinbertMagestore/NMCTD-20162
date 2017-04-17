@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     printf("Can\'t read input file!\n");
     return -1;
   }*/
-	compile("test\\example4.kpl");
+	compile("test\\example3.kpl");
 	getchar();
   return 0;
 }

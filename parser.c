@@ -576,6 +576,21 @@ void compileExpression(void) {
 		eat(SB_MINUS);
 		compileExpression2();
 		break;
+	case SB_COMMA:
+	case SB_EQ:
+	case SB_NEQ:
+	case SB_LE:
+	case SB_LT:
+	case SB_GE:
+	case SB_GT:
+	case KW_THEN:
+	case KW_DO:
+	case SB_RSEL:
+	case KW_END:
+	case SB_SEMICOLON:
+	case KW_ELSE:
+	case KW_TO:
+		break;
 	default:
 		compileExpression2();
 		break;
@@ -674,8 +689,26 @@ void compileFactor(void) {
 			break;
 		}
 		break;
-		//case:
-		//	break;
+	case SB_TIMES:
+	case SB_SLASH:
+	case SB_PLUS:
+	case SB_MINUS:
+	case SB_COMMA:
+	case SB_EQ:
+	case SB_NEQ:
+	case SB_LE:
+	case SB_LT:
+	case SB_GE:
+	case SB_GT:
+	case KW_THEN:
+	case KW_DO:
+	case SB_RPAR:
+	case SB_RSEL:
+	case KW_END:
+	case SB_SEMICOLON:
+	case KW_ELSE:
+	case KW_TO:
+		break;
 	default:
 		break;
 	}
