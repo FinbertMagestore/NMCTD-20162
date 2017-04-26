@@ -206,6 +206,7 @@ void compileUnsignedConstant(void) {
 		eat(TK_CHAR);
 		break;
 	default:
+		error(ERR_INVALIDCONSTANT, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -240,6 +241,7 @@ void compileConstant2(void) {
 		eat(TK_NUMBER);
 		break;
 	default:
+		error(ERR_INVALIDCONSTANT, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -265,6 +267,7 @@ void compileType(void) {
 		compileType();
 		break;
 	default:
+		error(ERR_INVALIDTYPE, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -299,6 +302,7 @@ void compileParams(void) {
 	case SB_SEMICOLON:
 		break;
 	default:
+		error(ERR_INVALIDPARAM, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -314,6 +318,7 @@ void compileParams2(void) {
 	case SB_RPAR:
 		break;
 	default:
+		error(ERR_INVALIDPARAM, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -333,6 +338,7 @@ void compileParam(void) {
 		compileBasicType();
 		break;
 	default:
+		error(ERR_INVALIDPARAM, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -354,6 +360,7 @@ void compileStatements2(void) {
 	case KW_END:
 		break;
 	default:
+		error(ERR_INVALIDSTATEMENT, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -413,6 +420,7 @@ void compileAssignSt(void) {
 	case KW_ELSE:
 		break;
 	default:
+		error(ERR_INVALIDSTATEMENT, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 	assert("Assign statement parsed ....");
@@ -490,6 +498,7 @@ void compileArguments(void) {
 	case KW_ELSE:
 		break;
 	default:
+		error(ERR_INVALIDARGUMENTS, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -505,6 +514,7 @@ void compileArguments2(void) {
 	case SB_RPAR:
 		break;
 	default:
+		error(ERR_INVALIDARGUMENTS, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -543,6 +553,7 @@ void compileCondition2(void) {
 		compileExpression();
 		break;
 	default:
+		error(ERR_INVALIDCOMPARATOR, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -602,6 +613,7 @@ void compileExpression3(void) {
 		compileExpression3();
 		break;
 	default:
+		error(ERR_INVALIDEXPRESSION, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
@@ -693,6 +705,7 @@ void compileFactor(void) {
 	case KW_TO:
 		break;
 	default:
+		error(ERR_INVALIDFACTOR, lookAhead->lineNo, lookAhead->colNo);
 		break;
 	}
 }
