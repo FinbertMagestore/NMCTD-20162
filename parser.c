@@ -72,10 +72,7 @@ void compileBlock3(void) {
 }
 
 void compileBlock4(void) {
-	if (lookAhead->tokenType == KW_PROCEDURE || lookAhead->tokenType == KW_FUNCTION)
-	{
-		compileSubDecls();
-	}
+	compileSubDecls();
 	compileBlock5();
 }
 
@@ -165,10 +162,6 @@ void compileSubDecls(void) {
 	case KW_PROCEDURE:
 		compileProcDecl();
 		compileSubDecls();
-		break;
-	case KW_BEGIN:
-		break;
-	default:
 		break;
 	}
 	assert("Subtoutines parsed ....");
@@ -455,18 +448,8 @@ void compileIfSt(void) {
 }
 
 void compileElseSt(void) {
-	/*eat(KW_ELSE);
-	compileStatement();*/
-	switch (lookAhead->tokenType) {
-	case KW_END:
-	case SB_SEMICOLON:
-	case KW_ELSE:
-		break;
-	default:
-		eat(KW_ELSE);
-		compileStatement();
-		break;
-	}
+	eat(KW_ELSE);
+	compileStatement();
 }
 
 void compileWhileSt(void) {
