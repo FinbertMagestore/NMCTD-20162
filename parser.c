@@ -26,7 +26,8 @@ void eat(TokenType tokenType) {
 		printToken(lookAhead);
 		scan();
 	}
-	else missingToken(tokenType, lookAhead->lineNo, lookAhead->colNo);
+	else
+		missingToken(tokenType, lookAhead->lineNo, lookAhead->colNo);
 }
 
 void compileProgram(void) {
@@ -596,6 +597,9 @@ void compileExpression(void) {
 	case SB_SEMICOLON:
 	case KW_ELSE:
 	case KW_TO:
+		error(ERR_INVALIDEXPRESSION, lookAhead->lineNo, lookAhead->colNo);
+		scan();
+		compileExpression2();
 		break;
 	default:
 		compileExpression2();

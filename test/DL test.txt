@@ -1,0 +1,6 @@
+các lỗi demo đc:
+- array thiếu (.: ARRAY( 10 .)
+- WHILE điều kiện sai: 	I <== N
+- sai định dạng Begin: Begim
+- thiếu ) trong biểu thức: F := N * F (N - 1;
+- thiếu từ khóa To trong ForSt
