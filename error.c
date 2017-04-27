@@ -53,7 +53,7 @@ void error(ErrorCode err, int lineNo, int colNo) {
     printf("%d-%d:%s\n", lineNo, colNo, ERM_INVALIDFACTOR);
     break;
   }
-  exit(0);
+  //exit(0);
 }
 
 void missingToken(TokenType tokenType, int lineNo, int colNo) {

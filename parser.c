@@ -85,6 +85,10 @@ void compileBlock5(void) {
 void compileConstDecls(void) {
 	// TODO done
 	switch (lookAhead->tokenType) {
+	case TK_IDENT:
+		compileConstDecl();
+		compileConstDecls();
+		break;
 	case KW_TYPE:
 	case KW_VAR:
 	case KW_FUNCTION:
@@ -92,8 +96,6 @@ void compileConstDecls(void) {
 	case KW_BEGIN:
 		break;
 	default:
-		compileConstDecl();
-		compileConstDecls();
 		break;
 	}
 }
@@ -109,14 +111,16 @@ void compileConstDecl(void) {
 void compileTypeDecls(void) {
 	// TODO done
 	switch (lookAhead->tokenType) {
+	case TK_IDENT:
+		compileType();
+		compileTypeDecls();
+		break;
 	case KW_VAR:
 	case KW_FUNCTION:
 	case KW_PROCEDURE:
 	case KW_BEGIN:
 		break;
 	default:
-		compileType();
-		compileTypeDecls();
 		break;
 	}
 }
@@ -132,13 +136,14 @@ void compileTypeDecl(void) {
 void compileVarDecls(void) {
 	// TODO done
 	switch (lookAhead->tokenType) {
+	case TK_IDENT:
+		compileVarDecl();
+		compileVarDecls();
 	case KW_FUNCTION:
 	case KW_PROCEDURE:
 	case KW_BEGIN:
 		break;
 	default:
-		compileVarDecl();
-		compileVarDecls();
 		break;
 	}
 }
@@ -157,11 +162,17 @@ void compileSubDecls(void) {
 	switch (lookAhead->tokenType) {
 	case KW_FUNCTION:
 		compileFuncDecl();
-		compileSubDecls();
+		if (lookAhead->tokenType == KW_FUNCTION || lookAhead->tokenType == KW_PROCEDURE)
+		{
+			compileSubDecls();
+		}
 		break;
 	case KW_PROCEDURE:
 		compileProcDecl();
-		compileSubDecls();
+		if (lookAhead->tokenType == KW_FUNCTION || lookAhead->tokenType == KW_PROCEDURE)
+		{
+			compileSubDecls();
+		}
 		break;
 	}
 	assert("Subtoutines parsed ....");
@@ -579,6 +590,7 @@ void compileExpression(void) {
 	case SB_GT:
 	case KW_THEN:
 	case KW_DO:
+	case SB_RPAR:
 	case SB_RSEL:
 	case KW_END:
 	case SB_SEMICOLON:
@@ -611,6 +623,22 @@ void compileExpression3(void) {
 		eat(SB_MINUS);
 		compileTerm();
 		compileExpression3();
+		break;
+	case SB_COMMA:
+	case SB_EQ:
+	case SB_NEQ:
+	case SB_LE:
+	case SB_LT:
+	case SB_GE:
+	case SB_GT:
+	case KW_THEN:
+	case KW_DO:
+	case SB_RPAR:
+	case SB_RSEL:
+	case KW_END:
+	case SB_SEMICOLON:
+	case KW_ELSE:
+	case KW_TO:
 		break;
 	default:
 		error(ERR_INVALIDEXPRESSION, lookAhead->lineNo, lookAhead->colNo);
@@ -686,23 +714,6 @@ void compileFactor(void) {
 		break;
 	case SB_TIMES:
 	case SB_SLASH:
-	case SB_PLUS:
-	case SB_MINUS:
-	case SB_COMMA:
-	case SB_EQ:
-	case SB_NEQ:
-	case SB_LE:
-	case SB_LT:
-	case SB_GE:
-	case SB_GT:
-	case KW_THEN:
-	case KW_DO:
-	case SB_RPAR:
-	case SB_RSEL:
-	case KW_END:
-	case SB_SEMICOLON:
-	case KW_ELSE:
-	case KW_TO:
 		break;
 	default:
 		error(ERR_INVALIDFACTOR, lookAhead->lineNo, lookAhead->colNo);
