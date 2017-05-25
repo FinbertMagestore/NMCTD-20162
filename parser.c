@@ -96,8 +96,6 @@ void compileConstDecls(void) {
 	case KW_PROCEDURE:
 	case KW_BEGIN:
 		break;
-	default:
-		break;
 	}
 }
 
@@ -121,8 +119,6 @@ void compileTypeDecls(void) {
 	case KW_PROCEDURE:
 	case KW_BEGIN:
 		break;
-	default:
-		break;
 	}
 }
 
@@ -143,8 +139,6 @@ void compileVarDecls(void) {
 	case KW_FUNCTION:
 	case KW_PROCEDURE:
 	case KW_BEGIN:
-		break;
-	default:
 		break;
 	}
 }
@@ -420,8 +414,8 @@ void compileAssignSt(void) {
 			// check the FOLLOW2 set
 		/*case :
 			break;*/
-		default:
-			break;
+		/*default:
+			break;*/
 		}
 		eat(SB_ASSIGN);
 		compileExpression();
@@ -597,9 +591,6 @@ void compileExpression(void) {
 	case SB_SEMICOLON:
 	case KW_ELSE:
 	case KW_TO:
-		error(ERR_INVALIDEXPRESSION, lookAhead->lineNo, lookAhead->colNo);
-		scan();
-		compileExpression2();
 		break;
 	default:
 		compileExpression2();
@@ -688,6 +679,7 @@ void compileTerm2(void) {
 		break;
 	default:
 		error(ERR_INVALIDTERM, lookAhead->lineNo, lookAhead->colNo);
+		break;
 	}
 }
 
@@ -712,8 +704,6 @@ void compileFactor(void) {
 		case SB_LPAR:
 			compileArguments();
 			break;
-		default:
-			break;
 		}
 		break;
 	case SB_TIMES:
@@ -737,8 +727,6 @@ void compileIndexes(void) {
 	case SB_ASSIGN:
 	case SB_TIMES:
 	case SB_SLASH:
-		break;
-	default:
 		break;
 	}
 }
